@@ -1,0 +1,13 @@
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\obj\Debug\netcoreapp2.2\NaiveBayesSpamminator.csprojAssemblyReference.cache
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\obj\Debug\netcoreapp2.2\NaiveBayesSpamminator.csproj.CoreCompileInputs.cache
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\obj\Debug\netcoreapp2.2\NaiveBayesSpamminator.AssemblyInfoInputs.cache
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\obj\Debug\netcoreapp2.2\NaiveBayesSpamminator.AssemblyInfo.cs
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\bin\Debug\netcoreapp2.2\NaiveBayesSpamminator.deps.json
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\bin\Debug\netcoreapp2.2\NaiveBayesSpamminator.runtimeconfig.json
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\bin\Debug\netcoreapp2.2\NaiveBayesSpamminator.runtimeconfig.dev.json
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\bin\Debug\netcoreapp2.2\NaiveBayesSpamminator.dll
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\bin\Debug\netcoreapp2.2\NaiveBayesSpamminator.pdb
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\obj\Debug\netcoreapp2.2\NaiveBayesSpamminator.dll
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\obj\Debug\netcoreapp2.2\NaiveBayesSpamminator.pdb
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\bin\Debug\netcoreapp2.2\TrainingData\Não spam.txt
+C:\Users\Anderson\source\repos\NaiveBayesSpamminator\NaiveBayesSpamminator\bin\Debug\netcoreapp2.2\TrainingData\Spam.txt
