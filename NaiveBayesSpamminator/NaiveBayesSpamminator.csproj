@@ -10,10 +10,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TrainingData\Não spam.txt">
+    <None Update="TrainingData\Email1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TrainingData\Spam.txt">
+    <None Update="TrainingData\Email4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TrainingData\Email3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TrainingData\Email2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

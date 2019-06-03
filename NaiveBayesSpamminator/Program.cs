@@ -24,12 +24,11 @@ namespace NaiveBayesSpamminator
 
             bayes.Learn(mails);
 
-            var result = bayes.Classify("email legal");
+            var result = bayes.Classify("Email");
 
             foreach (var item in result)
             {
-                Console.WriteLine(item.Key);
-                Console.WriteLine(item.Value);
+                Console.WriteLine($"{item.Key} -- {item.Value}");
             };
             Console.ReadLine();
         }

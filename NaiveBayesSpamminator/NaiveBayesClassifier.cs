@@ -18,6 +18,7 @@ namespace NaiveBayesSpamminator
         {
             vocabularyProbability = mails.SelectMany(mail => mail.Text.Split(" "))
                                          .Distinct()
+                                         .Where(word => word != string.Empty)
                                          .Where(word => !stopWords.Contains(word))
                                          .ToDictionary(d => d, d => new Dictionary<bool, double>());
 
@@ -30,7 +31,7 @@ namespace NaiveBayesSpamminator
                 var builder = new StringBuilder();
                 foreach (var doc in docs) builder.Append(doc.Text + " ");
 
-                var textWords = builder.ToString().Split(" ");
+                var textWords = builder.ToString().Split(" ").Where(d => d != string.Empty);
 
                 var totalWordsInText = textWords.Count();
 
@@ -61,9 +62,7 @@ namespace NaiveBayesSpamminator
         {
             double prod = 1.0;
             foreach (var word in words)
-            {
                 prod *= vocabularyProbability.GetValueOrDefault(word).GetValueOrDefault(isSpam);
-            }
 
             return prod;
         }
