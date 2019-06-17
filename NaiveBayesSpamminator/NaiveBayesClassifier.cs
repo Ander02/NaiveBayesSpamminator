@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -6,11 +8,17 @@ namespace NaiveBayesSpamminator
 {
     public class NaiveBayesClassifier
     {
-        private static Dictionary<string, Dictionary<bool, double>> vocabularyProbability = new Dictionary<string, Dictionary<bool, double>>();
+        private Dictionary<string, Dictionary<bool, double>> vocabularyProbability = new Dictionary<string, Dictionary<bool, double>>();
 
-        private static readonly Dictionary<bool, double> mailProbability = new Dictionary<bool, double>();
+        private Dictionary<bool, double> mailProbability = new Dictionary<bool, double>();
 
-        private static IList<bool> hypotesis = new List<bool>() { true, false };
+        private readonly IList<bool> hypotesis = new List<bool>() { true, false };
+
+        public void Learn(string jsonMailProbability, string jsonVocabularyProbability)
+        {
+            vocabularyProbability = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<bool, double>>>(jsonVocabularyProbability);
+            mailProbability = JsonConvert.DeserializeObject<Dictionary<bool, double>>(jsonMailProbability);
+        }
 
         public void Learn(IList<MailObject> mails) => Learn(mails, new List<string> { });
 
@@ -43,6 +51,27 @@ namespace NaiveBayesSpamminator
                     element.Value.Add(hypotesi, (totalOfCasesInTheText + 0.0) / (totalWordsInText + vocabularyProbability.Count()));
                 }
             }
+
+            //Normalize
+            foreach (var vocabularyWord in vocabularyProbability)
+                Normalize(vocabularyWord.Value);
+            Normalize(mailProbability);
+
+            var jsonVocabularyProbability = JsonConvert.SerializeObject(vocabularyProbability);
+            var jsonEmailProbability = JsonConvert.SerializeObject(mailProbability);
+
+            //            File.Create($"{Directory.GetCurrentDirectory()}/Data/mail.json");
+            File.WriteAllBytes($"{Directory.GetCurrentDirectory()}/Data/mail.json", Encoding.UTF8.GetBytes(jsonEmailProbability));
+            //            File.Create($"{Directory.GetCurrentDirectory()}/Data/vocabulary.json");
+            File.WriteAllBytes($"{Directory.GetCurrentDirectory()}/Data/vocabulary.json", Encoding.UTF8.GetBytes(jsonVocabularyProbability));
+        }
+
+        private void Normalize(Dictionary<bool, double> dict)
+        {
+            var total = (dict[true] + dict[false]);
+
+            dict[true] = dict[true] / total;
+            dict[false] = dict[false] / total;
         }
 
         public Dictionary<bool, double> Classify(string email)
@@ -51,10 +80,9 @@ namespace NaiveBayesSpamminator
 
             var probability = new Dictionary<bool, double>();
             foreach (var hypotesi in hypotesis)
-            {
-                probability.Add(hypotesi, mailProbability.GetValueOrDefault(hypotesi) * ProbabilityProdutory(wordsInVocabulary, hypotesi));
-            }
+                probability.Add(hypotesi, mailProbability.GetValueOrDefault(hypotesi, 1) * ProbabilityProdutory(wordsInVocabulary, hypotesi));
 
+            Normalize(probability);
             return probability;
         }
 
@@ -62,10 +90,16 @@ namespace NaiveBayesSpamminator
         {
             double prod = 1.0;
             foreach (var word in words)
-                prod *= vocabularyProbability.GetValueOrDefault(word).GetValueOrDefault(isSpam);
-
+            {
+                var multiplier = vocabularyProbability.GetValueOrDefault(word, new Dictionary<bool, double>
+                {
+                    { isSpam, 1 }
+                }).GetValueOrDefault(isSpam, 1);
+                if (multiplier == 0)
+                    multiplier = 1;
+                prod *= multiplier;
+            }
             return prod;
         }
-
     }
 }
